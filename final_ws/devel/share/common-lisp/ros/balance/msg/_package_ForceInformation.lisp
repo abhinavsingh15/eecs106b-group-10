@@ -1,10 +1,10 @@
 (cl:in-package balance-msg)
-(cl:export '(LEFT-VAL
+(cl:export '(FRONT-VAL
+          FRONT
+          LEFT-VAL
           LEFT
           RIGHT-VAL
           RIGHT
-          FRONT-VAL
-          FRONT
           BACK-VAL
           BACK
 ))

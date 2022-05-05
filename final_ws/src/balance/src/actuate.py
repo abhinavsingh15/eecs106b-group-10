@@ -6,8 +6,6 @@ import baxter_interface
 
 from baxter_interface import CHECK_VERSION
 
-# for keyboard control
-import getch
 
 def map_keyboard():
     left = baxter_interface.Limb('left')
@@ -47,19 +45,7 @@ def map_keyboard():
 
 
 def main():
-    """RSDK Joint Position Example: Keyboard Control
-    Use your dev machine's keyboard to control joint positions.
-    Each key corresponds to increasing or decreasing the angle
-    of a joint on one of Baxter's arms. Each arm is represented
-    by one side of the keyboard and inner/outer key pairings
-    on each row for each joint.
-    """
-    epilog = """
-    See help inside the example with the '?' key for key bindings.
-    """
-    rospy.init_node("rsdk_joint_position_keyboard")
-    rs = baxter_interface.RobotEnable(CHECK_VERSION)
-    init_state = rs.state().enabled
+    rospy.init_node("actuate")
     map_keyboard()
 
 

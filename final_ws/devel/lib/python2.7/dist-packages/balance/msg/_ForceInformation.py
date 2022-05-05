@@ -8,15 +8,15 @@ import struct
 
 
 class ForceInformation(genpy.Message):
-  _md5sum = "94026a7e62b0f33847933ce7f6424b24"
+  _md5sum = "1734456ca7c0ca9ac9138b86977d7ada"
   _type = "balance/ForceInformation"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """int16[] left
-int16[] right
-int16[] front
-int16[] back"""
-  __slots__ = ['left','right','front','back']
-  _slot_types = ['int16[]','int16[]','int16[]','int16[]']
+  _full_text = """int16 front
+int16 left
+int16 right
+int16 back"""
+  __slots__ = ['front','left','right','back']
+  _slot_types = ['int16','int16','int16','int16']
 
   def __init__(self, *args, **kwds):
     """
@@ -26,7 +26,7 @@ int16[] back"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       left,right,front,back
+       front,left,right,back
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -35,19 +35,19 @@ int16[] back"""
     if args or kwds:
       super(ForceInformation, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.left is None:
-        self.left = []
-      if self.right is None:
-        self.right = []
       if self.front is None:
-        self.front = []
+        self.front = 0
+      if self.left is None:
+        self.left = 0
+      if self.right is None:
+        self.right = 0
       if self.back is None:
-        self.back = []
+        self.back = 0
     else:
-      self.left = []
-      self.right = []
-      self.front = []
-      self.back = []
+      self.front = 0
+      self.left = 0
+      self.right = 0
+      self.back = 0
 
   def _get_types(self):
     """
@@ -61,22 +61,8 @@ int16[] back"""
     :param buff: buffer, ``StringIO``
     """
     try:
-      length = len(self.left)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(struct.Struct(pattern).pack(*self.left))
-      length = len(self.right)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(struct.Struct(pattern).pack(*self.right))
-      length = len(self.front)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(struct.Struct(pattern).pack(*self.front))
-      length = len(self.back)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(struct.Struct(pattern).pack(*self.back))
+      _x = self
+      buff.write(_get_struct_4h().pack(_x.front, _x.left, _x.right, _x.back))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -88,38 +74,10 @@ int16[] back"""
     codecs.lookup_error("rosmsg").msg_type = self._type
     try:
       end = 0
+      _x = self
       start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.left = s.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.right = s.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.front = s.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.back = s.unpack(str[start:end])
+      end += 8
+      (_x.front, _x.left, _x.right, _x.back,) = _get_struct_4h().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -132,22 +90,8 @@ int16[] back"""
     :param numpy: numpy python module
     """
     try:
-      length = len(self.left)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(self.left.tostring())
-      length = len(self.right)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(self.right.tostring())
-      length = len(self.front)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(self.front.tostring())
-      length = len(self.back)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sh'%length
-      buff.write(self.back.tostring())
+      _x = self
+      buff.write(_get_struct_4h().pack(_x.front, _x.left, _x.right, _x.back))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -160,38 +104,10 @@ int16[] back"""
     codecs.lookup_error("rosmsg").msg_type = self._type
     try:
       end = 0
+      _x = self
       start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.left = numpy.frombuffer(str[start:end], dtype=numpy.int16, count=length)
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.right = numpy.frombuffer(str[start:end], dtype=numpy.int16, count=length)
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.front = numpy.frombuffer(str[start:end], dtype=numpy.int16, count=length)
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sh'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.back = numpy.frombuffer(str[start:end], dtype=numpy.int16, count=length)
+      end += 8
+      (_x.front, _x.left, _x.right, _x.back,) = _get_struct_4h().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -200,3 +116,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
+_struct_4h = None
+def _get_struct_4h():
+    global _struct_4h
+    if _struct_4h is None:
+        _struct_4h = struct.Struct("<4h")
+    return _struct_4h

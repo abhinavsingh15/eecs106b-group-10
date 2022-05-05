@@ -24,31 +24,31 @@ struct ForceInformation_
   typedef ForceInformation_<ContainerAllocator> Type;
 
   ForceInformation_()
-    : left()
-    , right()
-    , front()
-    , back()  {
+    : front(0)
+    , left(0)
+    , right(0)
+    , back(0)  {
     }
   ForceInformation_(const ContainerAllocator& _alloc)
-    : left(_alloc)
-    , right(_alloc)
-    , front(_alloc)
-    , back(_alloc)  {
+    : front(0)
+    , left(0)
+    , right(0)
+    , back(0)  {
   (void)_alloc;
     }
 
 
 
-   typedef std::vector<int16_t, typename ContainerAllocator::template rebind<int16_t>::other >  _left_type;
-  _left_type left;
-
-   typedef std::vector<int16_t, typename ContainerAllocator::template rebind<int16_t>::other >  _right_type;
-  _right_type right;
-
-   typedef std::vector<int16_t, typename ContainerAllocator::template rebind<int16_t>::other >  _front_type;
+   typedef int16_t _front_type;
   _front_type front;
 
-   typedef std::vector<int16_t, typename ContainerAllocator::template rebind<int16_t>::other >  _back_type;
+   typedef int16_t _left_type;
+  _left_type left;
+
+   typedef int16_t _right_type;
+  _right_type right;
+
+   typedef int16_t _back_type;
   _back_type back;
 
 
@@ -85,7 +85,7 @@ namespace message_traits
 
 
 
-// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
+// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
 // {'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'balance': ['/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
@@ -95,12 +95,12 @@ namespace message_traits
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::balance::ForceInformation_<ContainerAllocator> >
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::balance::ForceInformation_<ContainerAllocator> const>
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
@@ -129,12 +129,12 @@ struct MD5Sum< ::balance::ForceInformation_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "94026a7e62b0f33847933ce7f6424b24";
+    return "1734456ca7c0ca9ac9138b86977d7ada";
   }
 
   static const char* value(const ::balance::ForceInformation_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x94026a7e62b0f338ULL;
-  static const uint64_t static_value2 = 0x47933ce7f6424b24ULL;
+  static const uint64_t static_value1 = 0x1734456ca7c0ca9aULL;
+  static const uint64_t static_value2 = 0xc9138b86977d7adaULL;
 };
 
 template<class ContainerAllocator>
@@ -153,10 +153,10 @@ struct Definition< ::balance::ForceInformation_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int16[] left\n\
-int16[] right\n\
-int16[] front\n\
-int16[] back\n\
+    return "int16 front\n\
+int16 left\n\
+int16 right\n\
+int16 back\n\
 ";
   }
 
@@ -175,9 +175,9 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
+      stream.next(m.front);
       stream.next(m.left);
       stream.next(m.right);
-      stream.next(m.front);
       stream.next(m.back);
     }
 
@@ -197,30 +197,14 @@ struct Printer< ::balance::ForceInformation_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::balance::ForceInformation_<ContainerAllocator>& v)
   {
-    s << indent << "left[]" << std::endl;
-    for (size_t i = 0; i < v.left.size(); ++i)
-    {
-      s << indent << "  left[" << i << "]: ";
-      Printer<int16_t>::stream(s, indent + "  ", v.left[i]);
-    }
-    s << indent << "right[]" << std::endl;
-    for (size_t i = 0; i < v.right.size(); ++i)
-    {
-      s << indent << "  right[" << i << "]: ";
-      Printer<int16_t>::stream(s, indent + "  ", v.right[i]);
-    }
-    s << indent << "front[]" << std::endl;
-    for (size_t i = 0; i < v.front.size(); ++i)
-    {
-      s << indent << "  front[" << i << "]: ";
-      Printer<int16_t>::stream(s, indent + "  ", v.front[i]);
-    }
-    s << indent << "back[]" << std::endl;
-    for (size_t i = 0; i < v.back.size(); ++i)
-    {
-      s << indent << "  back[" << i << "]: ";
-      Printer<int16_t>::stream(s, indent + "  ", v.back[i]);
-    }
+    s << indent << "front: ";
+    Printer<int16_t>::stream(s, indent + "  ", v.front);
+    s << indent << "left: ";
+    Printer<int16_t>::stream(s, indent + "  ", v.left);
+    s << indent << "right: ";
+    Printer<int16_t>::stream(s, indent + "  ", v.right);
+    s << indent << "back: ";
+    Printer<int16_t>::stream(s, indent + "  ", v.back);
   }
 };
 

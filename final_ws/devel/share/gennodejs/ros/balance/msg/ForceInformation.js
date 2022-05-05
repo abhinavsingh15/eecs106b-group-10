@@ -18,49 +18,49 @@ class ForceInformation {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
+      this.front = null;
       this.left = null;
       this.right = null;
-      this.front = null;
       this.back = null;
     }
     else {
+      if (initObj.hasOwnProperty('front')) {
+        this.front = initObj.front
+      }
+      else {
+        this.front = 0;
+      }
       if (initObj.hasOwnProperty('left')) {
         this.left = initObj.left
       }
       else {
-        this.left = [];
+        this.left = 0;
       }
       if (initObj.hasOwnProperty('right')) {
         this.right = initObj.right
       }
       else {
-        this.right = [];
-      }
-      if (initObj.hasOwnProperty('front')) {
-        this.front = initObj.front
-      }
-      else {
-        this.front = [];
+        this.right = 0;
       }
       if (initObj.hasOwnProperty('back')) {
         this.back = initObj.back
       }
       else {
-        this.back = [];
+        this.back = 0;
       }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type ForceInformation
-    // Serialize message field [left]
-    bufferOffset = _arraySerializer.int16(obj.left, buffer, bufferOffset, null);
-    // Serialize message field [right]
-    bufferOffset = _arraySerializer.int16(obj.right, buffer, bufferOffset, null);
     // Serialize message field [front]
-    bufferOffset = _arraySerializer.int16(obj.front, buffer, bufferOffset, null);
+    bufferOffset = _serializer.int16(obj.front, buffer, bufferOffset);
+    // Serialize message field [left]
+    bufferOffset = _serializer.int16(obj.left, buffer, bufferOffset);
+    // Serialize message field [right]
+    bufferOffset = _serializer.int16(obj.right, buffer, bufferOffset);
     // Serialize message field [back]
-    bufferOffset = _arraySerializer.int16(obj.back, buffer, bufferOffset, null);
+    bufferOffset = _serializer.int16(obj.back, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -68,24 +68,19 @@ class ForceInformation {
     //deserializes a message object of type ForceInformation
     let len;
     let data = new ForceInformation(null);
-    // Deserialize message field [left]
-    data.left = _arrayDeserializer.int16(buffer, bufferOffset, null)
-    // Deserialize message field [right]
-    data.right = _arrayDeserializer.int16(buffer, bufferOffset, null)
     // Deserialize message field [front]
-    data.front = _arrayDeserializer.int16(buffer, bufferOffset, null)
+    data.front = _deserializer.int16(buffer, bufferOffset);
+    // Deserialize message field [left]
+    data.left = _deserializer.int16(buffer, bufferOffset);
+    // Deserialize message field [right]
+    data.right = _deserializer.int16(buffer, bufferOffset);
     // Deserialize message field [back]
-    data.back = _arrayDeserializer.int16(buffer, bufferOffset, null)
+    data.back = _deserializer.int16(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    let length = 0;
-    length += 2 * object.left.length;
-    length += 2 * object.right.length;
-    length += 2 * object.front.length;
-    length += 2 * object.back.length;
-    return length + 16;
+    return 8;
   }
 
   static datatype() {
@@ -95,16 +90,16 @@ class ForceInformation {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '94026a7e62b0f33847933ce7f6424b24';
+    return '1734456ca7c0ca9ac9138b86977d7ada';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    int16[] left
-    int16[] right
-    int16[] front
-    int16[] back
+    int16 front
+    int16 left
+    int16 right
+    int16 back
     `;
   }
 
@@ -114,32 +109,32 @@ class ForceInformation {
       msg = {};
     }
     const resolved = new ForceInformation(null);
+    if (msg.front !== undefined) {
+      resolved.front = msg.front;
+    }
+    else {
+      resolved.front = 0
+    }
+
     if (msg.left !== undefined) {
       resolved.left = msg.left;
     }
     else {
-      resolved.left = []
+      resolved.left = 0
     }
 
     if (msg.right !== undefined) {
       resolved.right = msg.right;
     }
     else {
-      resolved.right = []
-    }
-
-    if (msg.front !== undefined) {
-      resolved.front = msg.front;
-    }
-    else {
-      resolved.front = []
+      resolved.right = 0
     }
 
     if (msg.back !== undefined) {
       resolved.back = msg.back;
     }
     else {
-      resolved.back = []
+      resolved.back = 0
     }
 
     return resolved;
