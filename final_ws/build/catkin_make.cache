@@ -1,2 +1,2 @@
 balance
--DCATKIN_DEVEL_PREFIX=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel -DCMAKE_INSTALL_PREFIX=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_DEVEL_PREFIX=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel -DCMAKE_INSTALL_PREFIX=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/install -G Unix Makefiles

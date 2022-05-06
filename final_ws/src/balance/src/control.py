@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import rospy
 import baxter_interface
 from baxter_interface import CHECK_VERSION
@@ -12,6 +13,25 @@ baseline_front = 0
 baseline_back = 0
 time_limit = 100
 
+rospy.init_node('control')
+
+# movement
+left = baxter_interface.Limb('left')
+right = baxter_interface.Limb('right')
+grip_left = baxter_interface.Gripper('left', CHECK_VERSION)
+grip_right = baxter_interface.Gripper('right', CHECK_VERSION)
+lj = left.joint_names()
+rj = right.joint_names()
+
+def set_j(limb, joint_name, delta):
+    current_position = limb.joint_angle(joint_name)
+    joint_command = {joint_name: current_position + delta}
+    print(joint_command)
+    limb.set_joint_positions(joint_command)
+    
+left_cmd = (set_j, [left, lj[6], -0.1], "left_w2 decrease")
+right_cmd = (set_j, [left, lj[6], 0.1], "left_w2 increase")
+
 def callback(message):
     global time
     global baseline_left
@@ -24,9 +44,9 @@ def callback(message):
     front = message.front
     back = message.back
 
+
     # calibration phase
     if time < time_limit:
-        print(time)
         if time == 0:
             print("Calibrating...")
         baseline_left += left
@@ -48,40 +68,26 @@ def callback(message):
     offset_back = baseline_back - back
 
     offset = [offset_left, offset_right, offset_front, offset_back]
-
     print(offset)
 
-    # movement
-    left = baxter_interface.Limb('left')
-    right = baxter_interface.Limb('right')
-    grip_left = baxter_interface.Gripper('left', CHECK_VERSION)
-    grip_right = baxter_interface.Gripper('right', CHECK_VERSION)
-    lj = left.joint_names()
-    rj = right.joint_names()
-
-    def set_j(limb, joint_name, delta):
-        current_position = limb.joint_angle(joint_name)
-        joint_command = {joint_name: current_position + delta}
-        limb.set_joint_positions(joint_command)
-    
-    left_cmd = (set_j, [left, lj[6], 0.1], "left_w2 increase")
-    right_cmd = (set_j, [left, lj[6], -0.1], "left_w2 decrease")
-
-    if (offset_left - offset_right) > 50 and abs(angle0) <= 0.3:
-        cmd = right_cmd
-        angle0 -= 0.1
-        cmd[0](*cmd[1])
-    elif (offset_right - offset_left) > 50 and abs(angle0) <= 0.3:
-        cmd = left_cmd
-        angle0 += 0.1
-        cmd[0](*cmd[1])
+    # if (offset_left - offset_right) > 50 and angle0 <= 0.3:
+    #     cmd = left_cmd
+    #     angle0 += 0.1
+    #     cmd[0](*cmd[1])
+    #     print('left_cmd')
+    # elif (offset_right - offset_left) > 50 and angle0 >= -0.3:
+    #     cmd = right_cmd
+    #     angle0 -= 0.1
+    #     cmd[0](*cmd[1])
+    #     print('right_cmd')
 
 def listener():
+    print('Running Listener')
     rospy.Subscriber('forces', ForceInformation, callback)
-
     # exits with ctrl-c
     rospy.spin()
+    
 
-rospy.init_node('control')
 # pub = rospy.Publisher('movement', MovementInformation, queue_size = 1)
-listener()
+if __name__ == '__main__':
+    listener()

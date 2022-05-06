@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/install/lib;/scratch/shared/baxter_ws/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/install/lib;/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib;/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/eecs106b-group-10/final_ws/devel/lib;/scratch/shared/baxter_ws/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
