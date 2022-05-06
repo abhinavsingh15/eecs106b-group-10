@@ -3,8 +3,9 @@ import rospy
 import serial
 from matplotlib import pyplot as plt
 import numpy as np
+import sys
 
-from balance.msg import ForceInformation
+from balance.msg import PositionInformation
 
 port = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 print("-----------------------------------------------------")
@@ -14,18 +15,24 @@ port.flushInput()
 
 rospy.init_node('sense')
 rate = rospy.Rate(9600)
-pub = rospy.Publisher('forces', ForceInformation, queue_size = 1)
+pub = rospy.Publisher('positions', PositionInformation, queue_size = 1)
 
 Transform = np.array([[-3.7690, 0.7480, -0.0709, -0.3028],
                       [ 2.3338,  3.1073, -28.3759, 7.0619],
                       [-0.9461, -0.7077, -0.0299, -0.1277]])
 
-# Create GUI event loop       
-plt.ion()
-figure = plt.figure()
-ax = plt.axes()
-plt.xlim(-10, 10)
-plt.ylim(-10, 10)
+if (len(sys.argv) == 2):
+    sim = True
+else:
+    sim = False
+
+if (sim):
+    # Create GUI event loop       
+    plt.ion()
+    figure = plt.figure()
+    ax = plt.axes()
+    plt.xlim(-10, 10)
+    plt.ylim(-10, 10)
 
 time = 0
 baseline_left = 0
@@ -84,19 +91,14 @@ while not rospy.is_shutdown():
             y_filtered = y_filtered * 8
         elif (y_filtered > 0 and abs(x_filtered) < 3):
             y_filtered = y_filtered * 7.25
-        
-        print('Filtered: ', x_filtered, y_filtered)
+        if (sim):
+            plt.plot(x_filtered, y_filtered, 'o')
+            #Draw updated values
+            figure.canvas.draw()
+            ax.clear()
+            plt.xlim(-10, 10)
+            plt.ylim(-10, 10)
 
-        print(x_pos_gain*position[1], y_pos_gain*position[0])
-
-        #plt.plot(x_pos_gain*position[1], y_pos_gain*position[0], 'o')
-        plt.plot(x_filtered, y_filtered, 'o')
-        #Draw updated values
-        figure.canvas.draw()
-        ax.clear()
-        plt.xlim(-10, 10)
-        plt.ylim(-10, 10)
-
-        pub.publish(ForceInformation(packet[0], packet[1], packet[2], packet[3]))
+        pub.publish(PositionInformation(x_filtered, y_filtered, rospy.get_time()))
         rate.sleep()
     time += 1

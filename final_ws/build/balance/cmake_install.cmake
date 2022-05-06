@@ -33,7 +33,7 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/balance/msg" TYPE FILE FILES "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/ForceInformation.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/balance/msg" TYPE FILE FILES "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/PositionInformation.msg")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/balance_generate_messages_py"
-  "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_ForceInformation.py"
+  "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_PositionInformation.py"
   "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/__init__.py"
 )
 

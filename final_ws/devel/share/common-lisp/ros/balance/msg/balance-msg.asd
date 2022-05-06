@@ -4,6 +4,6 @@
 (defsystem "balance-msg"
   :depends-on (:roslisp-msg-protocol :roslisp-utils )
   :components ((:file "_package")
-    (:file "ForceInformation" :depends-on ("_package_ForceInformation"))
-    (:file "_package_ForceInformation" :depends-on ("_package"))
+    (:file "PositionInformation" :depends-on ("_package_PositionInformation"))
+    (:file "_package_PositionInformation" :depends-on ("_package"))
   ))

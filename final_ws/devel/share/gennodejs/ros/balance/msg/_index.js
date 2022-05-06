@@ -1,8 +1,8 @@
 
 "use strict";
 
-let ForceInformation = require('./ForceInformation.js');
+let PositionInformation = require('./PositionInformation.js');
 
 module.exports = {
-  ForceInformation: ForceInformation,
+  PositionInformation: PositionInformation,
 };

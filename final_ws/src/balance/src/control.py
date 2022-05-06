@@ -1,21 +1,56 @@
 #!/usr/bin/env python
 import rospy
 import baxter_interface
+import time
+import numpy as np
 from baxter_interface import CHECK_VERSION
 
-from balance.msg import ForceInformation
-
-time = 0
-angle0 = 0
-baseline_left = 0
-baseline_right = 0
-baseline_front = 0
-baseline_back = 0
-time_limit = 100
+from balance.msg import PositionInformation
 
 rospy.init_node('control')
 
-# movement
+input0_log = []
+input1_log = []
+
+current_x = 0
+current_y = 0
+current_time = 0
+initialize = True
+
+A = np.array([[0., 1., 0., 0.],
+              [0., 0., 0., 0.],
+              [0., 0., .0, 1.],
+              [0., 0., 0., 0.]])
+B = np.array([[     0., 0.],
+              [7.0071, 0.],
+              [     0., 0.],
+              [     0., -7.0071]])
+
+a1 = 1.0
+a2 = 1.0
+a3 = 1.0
+a4 = 1.0
+Q = np.array([[1., 0., 0., 1.],
+              [0., 1., 1., 0.],
+              [0., 1., 1., 0.],
+              [1., 0., 0., 1.]])
+R = np.diag([1., 1.])
+
+def discrete_lqr(A, B, Q, R, horizons):
+    #Solve ricatti equation
+    P = Q
+    for i in range(horizons):
+        Pn = A.T.dot(P).dot(A) - A.T.dot(P).dot(B).dot(np.linalg.inv(R + B.T.dot(P).dot(B))).dot(B.T).dot(P).dot(A) + Q
+        if (abs(Pn - P).max() < 0.01):
+            break
+        P =  Pn
+    K = np.linalg.inv(B.T.dot(P).dot(B) + R).dot(B.T.dot(P).dot(A))
+    return K
+
+K = discrete_lqr(A, B, Q, R, 50)
+
+
+# Set joint commands
 left = baxter_interface.Limb('left')
 right = baxter_interface.Limb('right')
 grip_left = baxter_interface.Gripper('left', CHECK_VERSION)
@@ -28,64 +63,64 @@ def set_j(limb, joint_name, delta):
     joint_command = {joint_name: current_position + delta}
     print(joint_command)
     limb.set_joint_positions(joint_command)
-    
-left_cmd = (set_j, [left, lj[6], -0.1], "left_w2 decrease")
-right_cmd = (set_j, [left, lj[6], 0.1], "left_w2 increase")
 
 def callback(message):
-    global time
-    global baseline_left
-    global baseline_right
-    global baseline_front
-    global baseline_back
-    global angle0
-    left = message.left
-    right = message.right
-    front = message.front
-    back = message.back
-
-
-    # calibration phase
-    if time < time_limit:
-        if time == 0:
-            print("Calibrating...")
-        baseline_left += left
-        baseline_right += right
-        baseline_front += front
-        baseline_back += back
-        if time == time_limit - 1:
-            print('Calibration complete.')
-            baseline_left /= time_limit
-            baseline_right /= time_limit
-            baseline_front /= time_limit
-            baseline_back /= time_limit
-        time += 1
+    global current_x
+    global current_y
+    global current_time
+    global initialize
+    global input0_log
+    global input1_log
+    x = message.x
+    y = message.y
+    t = message.time
+    if initialize:
+        current_x = x
+        current_y = y
+        current_time = t
+        initialize = False
         return
+    delta_t = t - current_time
+    x_dot = (x - current_x)/delta_t
+    y_dot = (y - current_y)/delta_t
+    
+    x_state = np.array([x, x_dot, y, y_dot])
+    x_state = x_state / 100.0
 
-    offset_left = baseline_left - left
-    offset_right = baseline_right - right
-    offset_front = baseline_front - front
-    offset_back = baseline_back - back
+    u = -K.dot(x_state.T)
+    u[1] = u[1]*25
+    print(u)
+    input0_log.append(u[0])
+    input1_log.append(u[1])
 
-    offset = [offset_left, offset_right, offset_front, offset_back]
-    print(offset)
-
-    # if (offset_left - offset_right) > 50 and angle0 <= 0.3:
-    #     cmd = left_cmd
-    #     angle0 += 0.1
+    if abs(u[1]) > 0.005:
+        cmd = (set_j, [left, lj[6], u[1]], "Left-Right Angle")
+        cmd[0](*cmd[1])
+    # if abs(u[0]) > 0.005:
+    #     cmd = (set_j, [left, lj[5], u[0]], "Up-Down Angle")
     #     cmd[0](*cmd[1])
-    #     print('left_cmd')
-    # elif (offset_right - offset_left) > 50 and angle0 >= -0.3:
-    #     cmd = right_cmd
-    #     angle0 -= 0.1
-    #     cmd[0](*cmd[1])
-    #     print('right_cmd')
+
+    current_x = x
+    current_y = y
+    current_time = t
 
 def listener():
-    print('Running Listener')
-    rospy.Subscriber('forces', ForceInformation, callback)
+    rospy.Subscriber('positions', PositionInformation, callback)
     # exits with ctrl-c
     rospy.spin()
+    from matplotlib import pyplot as plt
+    fig, axs = plt.subplots(2)
+    fig.suptitle('LQR Control Inputs')
+    axs[0].set_title('Theta_y')
+    axs[0].set_ylabel('Theta_y')
+    axs[0].set_xlabel('Time')
+    axs[0].plot(input0_log)
+    axs[1].set_title('Theta_x')
+    axs[1].set_ylabel('Theta_x')
+    axs[1].set_xlabel('Time')
+    axs[1].plot(input1_log)
+    plt.show()
+    print('easter egg message')
     
 
 # pub = rospy.Publisher('movement', MovementInformation, queue_size = 1)

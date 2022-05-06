@@ -387,6 +387,19 @@ balance_generate_messages_cpp/fast:
 .PHONY : balance_generate_messages_cpp/fast
 
 #=============================================================================
+# Target rules for targets named _balance_generate_messages_check_deps_PositionInformation
+
+# Build rule for target.
+_balance_generate_messages_check_deps_PositionInformation: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _balance_generate_messages_check_deps_PositionInformation
+.PHONY : _balance_generate_messages_check_deps_PositionInformation
+
+# fast build rule for target.
+_balance_generate_messages_check_deps_PositionInformation/fast:
+	$(MAKE) -f balance/CMakeFiles/_balance_generate_messages_check_deps_PositionInformation.dir/build.make balance/CMakeFiles/_balance_generate_messages_check_deps_PositionInformation.dir/build
+.PHONY : _balance_generate_messages_check_deps_PositionInformation/fast
+
+#=============================================================================
 # Target rules for targets named baxter_core_msgs_generate_messages_py
 
 # Build rule for target.
@@ -998,19 +1011,6 @@ sensor_msgs_generate_messages_nodejs/fast:
 .PHONY : sensor_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
-# Target rules for targets named _balance_generate_messages_check_deps_ForceInformation
-
-# Build rule for target.
-_balance_generate_messages_check_deps_ForceInformation: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _balance_generate_messages_check_deps_ForceInformation
-.PHONY : _balance_generate_messages_check_deps_ForceInformation
-
-# fast build rule for target.
-_balance_generate_messages_check_deps_ForceInformation/fast:
-	$(MAKE) -f balance/CMakeFiles/_balance_generate_messages_check_deps_ForceInformation.dir/build.make balance/CMakeFiles/_balance_generate_messages_check_deps_ForceInformation.dir/build
-.PHONY : _balance_generate_messages_check_deps_ForceInformation/fast
-
-#=============================================================================
 # Target rules for targets named actionlib_generate_messages_cpp
 
 # Build rule for target.
@@ -1222,6 +1222,7 @@ help:
 	@echo "... balance_gencpp"
 	@echo "... balance_genlisp"
 	@echo "... balance_generate_messages_cpp"
+	@echo "... _balance_generate_messages_check_deps_PositionInformation"
 	@echo "... baxter_core_msgs_generate_messages_py"
 	@echo "... baxter_core_msgs_generate_messages_nodejs"
 	@echo "... baxter_core_msgs_generate_messages_lisp"
@@ -1269,7 +1270,6 @@ help:
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... _balance_generate_messages_check_deps_ForceInformation"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_nodejs"

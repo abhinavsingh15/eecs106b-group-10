@@ -53,22 +53,22 @@ CMAKE_BINARY_DIR = /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_
 # Include the progress variables for this target.
 include balance/CMakeFiles/balance_generate_messages_py.dir/progress.make
 
-balance/CMakeFiles/balance_generate_messages_py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_ForceInformation.py
+balance/CMakeFiles/balance_generate_messages_py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_PositionInformation.py
 balance/CMakeFiles/balance_generate_messages_py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/__init__.py
 
 
-/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_ForceInformation.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
-/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_ForceInformation.py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/ForceInformation.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG balance/ForceInformation"
-	cd /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/build/balance && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/ForceInformation.msg -Ibalance:/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p balance -o /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg
+/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_PositionInformation.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
+/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_PositionInformation.py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/PositionInformation.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG balance/PositionInformation"
+	cd /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/build/balance && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/PositionInformation.msg -Ibalance:/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p balance -o /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg
 
 /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
-/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/__init__.py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_ForceInformation.py
+/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/__init__.py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_PositionInformation.py
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for balance"
 	cd /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/build/balance && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg --initpy
 
 balance_generate_messages_py: balance/CMakeFiles/balance_generate_messages_py
-balance_generate_messages_py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_ForceInformation.py
+balance_generate_messages_py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/_PositionInformation.py
 balance_generate_messages_py: /home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/devel/lib/python2.7/dist-packages/balance/msg/__init__.py
 balance_generate_messages_py: balance/CMakeFiles/balance_generate_messages_py.dir/build.make
 

@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/ForceInformation.msg"
+messages_str = "/home/cc/ee106b/sp22/class/ee106b-acg/Desktop/projects/final_ws/src/balance/msg/PositionInformation.msg"
 services_str = ""
 pkg_name = "balance"
 dependencies_str = "geometry_msgs;std_msgs"
